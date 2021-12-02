@@ -1,0 +1,38 @@
+{
+  "name": "@tf-magic/draggable-table",
+  "version": "0.0.1",
+  "description": "一个简易的可拖拽表格组件",
+  "keywords": [
+    "表格",
+    "拖拽表格",
+    "可拖拽表格"
+  ],
+  "author": "郑余靖 <24907@etransfar.com>",
+  "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component.git",
+  "license": "MIT",
+  "main": "dist/draggable-table.js",
+  "module": "dist/draggable-table.mjs",
+  "typings": "dist/draggable-table.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://10.77.0.105:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tf56.lo/24907/tf-magic-component.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "devDependencies": {
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  }
+}
