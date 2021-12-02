@@ -23,12 +23,9 @@
   "keywords": [
     ""
   ],
-  "dependencies": {
-
-  },
   "devDependencies": {
-    "react": "^16.9.0",
     "antd": "^3.10.0",
+    "react": "^16.9.0",
     "tf-lint-config-app": "^1.1.15"
   },
   "author": "",
