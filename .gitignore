@@ -7,7 +7,9 @@
 
 # production
 dist
+lib
 packages/**/dist
+packages/**/lib
 
 # misc
 .DS_Store

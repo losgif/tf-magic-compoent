@@ -2,12 +2,21 @@
   "compilerOptions": {
     "target": "ES2020",
     "jsx": "react",
-    "lib": ["ESNext", "ES2015"],
+    "lib": [
+      "ESNext",
+      "ES2015",
+      "dom",
+      "ScriptHost"
+    ],
     "noImplicitAny": true,
     "removeComments": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "preserveConstEnums": true,
     "sourceMap": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "build", "dist"]
 }
