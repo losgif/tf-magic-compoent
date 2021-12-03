@@ -2,12 +2,10 @@ import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 import less from 'rollup-plugin-less';
 
-const name = require('./package.json').main.replace(/\.js$/, '')
-
 const bundle = config => ({
   ...config,
   input: 'src/index.ts',
-  external: id => !/^[./]/.test(id),
+  external: id => !/^[./]/.test(id)
 })
 
 export default [
@@ -18,22 +16,31 @@ export default [
     ],
     output: [
       {
-        file: `${name}.js`,
+        dir: 'lib',
         format: 'cjs',
-        sourcemap: true,
+        preserveModules: true
       },
       {
-        file: `${name}.esm.js`,
-        format: 'esm',
+        dir: 'es',
+        format: 'es',
         sourcemap: true,
+        preserveModules: true
       }
-    ],
+    ]
   }),
   bundle({
     plugins: [dts()],
-    output: {
-      file: `${name}.d.ts`,
-      format: 'es',
-    },
-  }),
+    output: [
+      {
+        dir: 'lib',
+        format: 'es',
+        preserveModules: true
+      },
+      {
+        dir: 'es',
+        format: 'es',
+        preserveModules: true
+      }
+    ]
+  })
 ]
