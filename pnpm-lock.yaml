@@ -44,6 +44,9 @@ importers:
   packages/draggable-table:
     specifiers: {}
 
+  packages/select:
+    specifiers: {}
+
 packages:
 
   /@ant-design/colors/3.2.2:
