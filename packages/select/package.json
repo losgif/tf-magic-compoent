@@ -1,0 +1,36 @@
+{
+  "name": "@tf-magic/select",
+  "version": "0.1.0",
+  "description": "一个支持远程加载选项的下拉选择框",
+  "keywords": [
+    "远程加载",
+    "下拉选择框",
+    "选择",
+    "选择框",
+    "选择器"
+  ],
+  "author": "郑余靖 <24907@etransfar.com>",
+  "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component",
+  "license": "MIT",
+  "main": "lib/select.js",
+  "module": "lib/select.esm.js",
+  "typings": "lib/select.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "http://10.77.0.105:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tf56.lo/24907/tf-magic-component.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
