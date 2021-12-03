@@ -1,6 +1,6 @@
 {
   "name": "@tf-magic/draggable-table",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "一个简易的可拖拽表格组件",
   "keywords": [
     "表格",
