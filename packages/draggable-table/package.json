@@ -10,15 +10,16 @@
   "author": "郑余靖 <24907@etransfar.com>",
   "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component.git",
   "license": "MIT",
-  "main": "lib/draggable-table.js",
-  "module": "lib/draggable-table.esm.js",
-  "typings": "lib/draggable-table.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "es"
   ],
   "publishConfig": {
     "registry": "http://10.77.0.105:4873/"

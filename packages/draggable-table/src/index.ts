@@ -1,3 +1,1 @@
-import DraggableTable from './DraggableTable'
-
-export default DraggableTable
+export { default } from './DraggableTable'
