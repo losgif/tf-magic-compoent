@@ -3,13 +3,14 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "dev:draggable-table": "pnpm start --filter '@tf-magic/draggable-table'"
+    "test": "jest"
   },
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@commitlint/config-lerna-scopes": "^15.0.0",
     "@types/classnames": "^2.3.1",
+    "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.177",
     "@types/react": "^17.0.37",
     "antd": "^3.11.6",
@@ -17,15 +18,20 @@
     "commitlint": "^15.0.0",
     "esbuild": "^0.14.1",
     "husky": "^7.0.4",
+    "jest": "^27.4.3",
     "lerna": "^4.0.0",
     "lerna-changelog": "^2.2.0",
+    "less": "^4.1.2",
     "lodash": "^4.17.21",
+    "postcss": "^8.4.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-drag-listview": "^0.1.8",
     "rollup": "^2.60.2",
     "rollup-plugin-dts": "^4.0.1",
     "rollup-plugin-esbuild": "^4.7.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "ts-jest": "^27.0.7",
     "typescript": "4.0.8"
   },
   "peerDependencies": {

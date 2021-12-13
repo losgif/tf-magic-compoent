@@ -1,6 +1,6 @@
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
-import less from 'rollup-plugin-less';
+import postcss from 'rollup-plugin-postcss'
 
 const bundle = config => ({
   ...config,
@@ -11,8 +11,12 @@ const bundle = config => ({
 export default [
   bundle({
     plugins: [
-      esbuild(),
-      less()
+      postcss({
+        modules: true,
+        extract: true,
+        minimize: true
+      }),
+      esbuild()
     ],
     output: [
       {
@@ -33,7 +37,7 @@ export default [
     output: [
       {
         dir: 'lib',
-        format: 'es',
+        format: 'cjs',
         preserveModules: true
       },
       {

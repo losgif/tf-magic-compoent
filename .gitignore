@@ -9,6 +9,7 @@
 **/dist
 **/lib
 **/es
+**/*-template
 
 # misc
 .DS_Store
