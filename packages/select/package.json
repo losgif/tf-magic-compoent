@@ -12,15 +12,16 @@
   "author": "郑余靖 <24907@etransfar.com>",
   "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component",
   "license": "MIT",
-  "main": "lib/select.js",
-  "module": "lib/select.esm.js",
-  "typings": "lib/select.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "lib",
+    "es"
   ],
   "publishConfig": {
     "registry": "http://10.77.0.105:4873/"

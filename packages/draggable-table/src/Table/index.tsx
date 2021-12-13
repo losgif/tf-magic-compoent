@@ -8,7 +8,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import classNames from 'classnames';
-import styles from './index.less';
+import styles from './index.module.less';
 import { TableProps } from 'antd/es/table'
 
 const styledTable = <T extends unknown>(props: TableProps<T>) => {
