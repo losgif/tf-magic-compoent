@@ -43,7 +43,7 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
 
   useEffect(() => {
     setOptions(propsOptions)
-  }, [])
+  }, [propsOptions])
 
   useEffect(() => {
     /**
