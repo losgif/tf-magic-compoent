@@ -41,6 +41,9 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
   const [options, setOptions] = useState<SelectComponentOption[]>()
   const loadingRef = useRef<boolean>(false)
 
+  /**
+   * 外部更新配置
+   */
   useEffect(() => {
     setOptions(propsOptions)
   }, [propsOptions])
