@@ -1,0 +1,34 @@
+{
+  "name": "@tf-magic/address",
+  "version": "0.3.0",
+  "description": "地址选择器，支持省市区街道四级地址，支持详细地址填写。",
+  "keywords": [
+    "地址选择器",
+    "address"
+  ],
+  "author": "郑余靖 <24907@etransfar.com>",
+  "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component.git",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "es"
+  ],
+  "publishConfig": {
+    "registry": "http://10.77.0.105:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.tf56.lo/24907/tf-magic-component.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
