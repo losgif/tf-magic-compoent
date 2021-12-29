@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { useEffect, useRef, useState } from 'react';
 import { Empty, Icon, Select, Spin } from 'antd';
 import { SelectProps, SelectValue } from 'antd/lib/select'
-import styles from './index.less'
-import _ from 'lodash'
+import { debounce } from 'lodash'
+import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SelectComponentOption } from './constants'
+import styles from './index.less'
 
 /**
  * 选项组件Props类型声明
@@ -82,13 +82,6 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
   ])
 
   /**
-   * 搜索选择组件onSearch处理方法
-   *
-   * @param text
-   */
-  const onSearch = (text: string) => (_.debounce(() => loadData(text), 500) as Function)()
-
-  /**
    * 动态搜索组件获取可选项方法
    *
    * @param text
@@ -113,10 +106,17 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
     })
   }
 
+  /**
+   * 搜索选择组件onSearch处理方法
+   *
+   * @param text
+   */
+  const onSearch = debounce(loadData, 500)
+
   return (
     <Select { ...config } >
       {
-        options && options.map((option, index) => (
+        options && options.map((option) => (
           <Select.Option
             value={ option.value }
           >
