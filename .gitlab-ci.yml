@@ -1,0 +1,14 @@
+.common-tags:
+  tags:
+    - docker-ci-runner
+
+stages:
+  - preparation
+
+test:
+  extends: .common-tags
+  image: harbor.tf56.lo/front/node:14
+  stage: preparation
+  script:
+    - pnpm install
+    - pnpm run test
