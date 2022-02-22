@@ -99,6 +99,7 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
       setConfig(dynamicConfig)
     }
   }, [
+    props.value,
     propsLoadData,
     showSearch
   ])
