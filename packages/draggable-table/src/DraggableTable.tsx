@@ -86,7 +86,10 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
         }
       })
 
-      setColumns(cloneColumns)
+      /**
+       * 过滤未匹配表头数据
+       */
+      setColumns(cloneColumns.filter(value => value))
     } else {
       setColumnKeys([])
       setColumns(props.columns)
