@@ -77,12 +77,6 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
     // 获取表头排序数据
     const columnKeys = getColumnKeys()
 
-    /**
-     * TODO: 存在问题，浏览器保存的表头和代码里的一样长度，但是key变了，会丢失更改的key
-     * 解决方案有：
-     * 1、不允许修改key值
-     * 2、修改后的key值在重新排序后放置在数组最后
-     */
     if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
       const cloneColumns = columnKeys.map(columnKey => {
         for (let i = 0; i < props.columns.length; i++) {
@@ -93,9 +87,14 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
       })
 
       /**
-       * 过滤未匹配表头数据
+       * 重新排序后非空子项长度不变时作为新列传递给Table
        */
-      setColumns(cloneColumns.filter(value => value))
+      if (cloneColumns.filter(value => value).length === props.columns.length) {
+        setColumns(cloneColumns)
+      } else {
+        setColumnKeys([])
+        setColumns(props.columns)
+      }
     } else {
       setColumnKeys([])
       setColumns(props.columns)
