@@ -1,15 +1,21 @@
-import SelectComponent from './SelectComponent'
-import DynamicSelectComponent from './DynamicSelectComponent'
 import {
+  computeValidOptionValue,
+  SelectComponentOption,
   selectTypeConverter,
-  selectTypeConverterFromArray,
-  computeValidOptionValue
+  selectTypeConverterFromArray
 } from './constants'
+import DoubleSelectWrapper from './DoubleSelectWrapper'
+import DynamicSelectComponent from './DynamicSelectComponent'
+import SelectComponent from './SelectComponent'
 
 export {
   SelectComponent,
   DynamicSelectComponent,
+  DoubleSelectWrapper,
   selectTypeConverter,
   selectTypeConverterFromArray,
+  SelectComponentOption,
   computeValidOptionValue
 }
+
+export default SelectComponent
