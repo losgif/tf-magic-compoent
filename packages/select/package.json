@@ -31,7 +31,9 @@
     "url": "http://gitlab.tf56.lo/24907/tf-magic-component.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "run-s compile types",
+    "compile": "magic-cli compile",
+    "types": "tsc --noEmit",
     "test": "echo \"Error: run tests from root\" && exit 1"
   }
 }

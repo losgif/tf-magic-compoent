@@ -10,8 +10,24 @@ import styles from './index.less'
  * 选项组件Props类型声明
  */
 type DynamicSelectComponentProps = {
+  /**
+   * 初始化可选项数组
+   */
   options?: SelectComponentOption[]
+
+  /**
+   * 选项加载方法
+   */
   loadData?: ((text: SelectValue) => Promise<SelectComponentOption[]>)
+
+  /**
+   * 防抖时长
+   */
+  wait?: number
+
+  /**
+   * 选项值
+   */
   value?: SelectValue
 } & SelectProps
 
@@ -35,7 +51,13 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
     }
   }
 
-  let { loadData: propsLoadData, options: propsOptions, showSearch, ...restProps } = props;
+  let {
+    loadData: propsLoadData,
+    options: propsOptions,
+    wait: propsWait,
+    showSearch,
+    ...restProps
+  } = props;
 
   const [config, setConfig] = useState<SelectProps>()
   const [options, setOptions] = useState<SelectComponentOption[]>()
@@ -111,7 +133,7 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
    *
    * @param text
    */
-  const onSearch = debounce(loadData, 500)
+  const onSearch = debounce(loadData, propsWait)
 
   return (
     <Select { ...config } >
@@ -126,6 +148,13 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
       }
     </Select>
   )
+}
+
+/**
+ * 默认Props值
+ */
+DynamicSelectComponent.defaultProps = {
+  wait: 500
 }
 
 export default DynamicSelectComponent;
