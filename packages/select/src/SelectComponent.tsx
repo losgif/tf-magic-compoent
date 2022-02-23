@@ -7,8 +7,20 @@ import { SelectComponentOption } from './constants'
  * 选项组件Props类型声明
  */
 type SelectComponentProps = {
+  /**
+   * 选项数组
+   */
   options?: SelectComponentOption[]
+
+  /**
+   * 选择器值
+   */
   value?: SelectValue
+
+  /**
+   * 值转换器
+   * @param value
+   */
   valueConverter?: (value: React.ReactText) => React.ReactText
 } & SelectProps
 

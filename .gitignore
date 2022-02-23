@@ -6,6 +6,7 @@
 .vscode
 
 # production
+**/.umi
 **/dist
 **/lib
 **/es
