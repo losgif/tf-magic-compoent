@@ -1,4 +1,5 @@
 export default {
+  base: process.env.DEPLOY_ROOT_DIR ? '/' : '/tf-magic-component',
   dynamicImport: {},
   extraBabelPlugins: [
     [
@@ -14,7 +15,7 @@ export default {
   // forkTSChecker: {},
   mode: 'doc',
   mountElementId: 'tf-magic-component',
-  publicPath: '/tf-magic-component/',
+  publicPath: process.env.DEPLOY_ROOT_DIR ? '/' : '/tf-magic-component/',
   qiankun: {
     slave: {},
   },
