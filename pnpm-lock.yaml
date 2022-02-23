@@ -38,7 +38,6 @@ importers:
       rollup-plugin-terser: ^7.0.2
       ts-jest: ^27.0.7
       typescript: 4.0.8
-      umi: ^3.5.20
     dependencies:
       rollup-plugin-less: 1.1.3
       rollup-plugin-terser: 7.0.2_rollup@2.68.0
@@ -50,7 +49,7 @@ importers:
       '@types/jest': 27.4.0
       '@types/lodash': 4.14.178
       '@types/react': 17.0.39
-      '@umijs/plugin-qiankun': 2.36.0_bb7d78bd9dc4e9cf819268f1657fa0c9
+      '@umijs/plugin-qiankun': 2.36.0_react-dom@16.14.0+react@16.14.0
       antd: 3.26.20_react-dom@16.14.0+react@16.14.0
       babel-plugin-import: 1.13.3
       classnames: 2.3.1
@@ -75,7 +74,6 @@ importers:
       rollup-plugin-postcss: 4.0.2_postcss@8.4.6
       ts-jest: 27.1.3_cf216b6c90ad26767d718987ceacac46
       typescript: 4.0.8
-      umi: 3.5.20
 
   packages/address:
     specifiers: {}
@@ -2180,7 +2178,7 @@ packages:
       umi: 3.5.20
     dev: true
 
-  /@umijs/plugin-qiankun/2.36.0_bb7d78bd9dc4e9cf819268f1657fa0c9:
+  /@umijs/plugin-qiankun/2.36.0_react-dom@16.14.0+react@16.14.0:
     resolution: {integrity: sha512-ccilEInRckGynb2FHMeX0Vxv4zbcmSO4USGgHxdF4fPySAkIRIcklGOWhyXgtHzz0N+cuZV47g8T36p73JOk5Q==}
     peerDependencies:
       react: '16'
@@ -2195,7 +2193,6 @@ packages:
       qiankun: 2.6.3
       react: 16.14.0
       react-dom: 16.14.0_react@16.14.0
-      umi: 3.5.20
     dev: true
 
   /@umijs/preset-built-in/3.5.20_react-dom@16.14.0+react@16.14.0:
