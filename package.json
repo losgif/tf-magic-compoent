@@ -5,7 +5,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "magic-cli compile",
     "start": "dumi dev",
-    "doc:build": "dumi build",
+    "docs:build": "dumi build",
     "test": "jest"
   },
   "devDependencies": {
