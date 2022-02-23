@@ -12,6 +12,9 @@ import { ColumnProps } from 'antd/lib/table'
  * 注意，Columns参数中，key 必须唯一且必传
  */
 type DraggableTableProps<T> = TableProps<T> & {
+  /**
+   * 本地存储键名
+   */
   storageKey: string,
 }
 

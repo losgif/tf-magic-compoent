@@ -1,6 +1,4 @@
-'use strict';
-
-const { computeValidOptionValue, selectTypeConverterFromArray, selectTypeConverter } = require('../src/constants');
+import { selectTypeConverter } from '..'
 
 describe('@tf-magic/select', () => {
   it('selectTypeConverter', () => {
