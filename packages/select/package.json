@@ -9,8 +9,8 @@
     "选择框",
     "选择器"
   ],
-  "author": "郑余靖 <24907@etransfar.com>",
-  "homepage": "http://gitlab.tf56.lo/24907/tf-magic-component",
+  "author": "losgif <losgif@gmail.com>",
+  "homepage": "https://tf-magic-component.vercel.app/",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,12 +23,9 @@
     "lib",
     "es"
   ],
-  "publishConfig": {
-    "registry": "http://10.77.0.105:4873/"
-  },
   "repository": {
     "type": "git",
-    "url": "http://gitlab.tf56.lo/24907/tf-magic-component.git"
+    "url": "https://github.com/losgif/tf-magic-component/tree/master/packages/select"
   },
   "scripts": {
     "build": "run-s compile types",
