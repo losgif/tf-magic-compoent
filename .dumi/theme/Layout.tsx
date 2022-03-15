@@ -139,6 +139,7 @@ const Layout: React.FC<IRouteComponentProps & { sideMenu: boolean }> = ({ childr
 };
 
 const CustomLayout = ({ children, ...props }) => {
+  // @ts-ignore
   const isInQianKun = window.__POWERED_BY_QIANKUN__
 
   return (
