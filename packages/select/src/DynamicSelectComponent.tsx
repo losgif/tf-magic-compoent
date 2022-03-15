@@ -4,6 +4,7 @@ import { debounce } from 'lodash'
 import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { SelectComponentOption } from './constants'
+// @ts-ignore
 import styles from './index.less'
 
 /**
@@ -16,7 +17,7 @@ type DynamicSelectComponentProps = {
   options?: SelectComponentOption[]
 
   /**
-   * 选项加载方法
+   * 选项动态查询功能回调函数，`showSearch`参数 同时传入情况下有效
    */
   loadData?: ((text: SelectValue) => Promise<SelectComponentOption[]>)
 
@@ -139,11 +140,12 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
   return (
     <Select { ...config } >
       {
-        options && options.map((option) => (
+        options && options.map(({ name, value,...option }) => (
           <Select.Option
-            value={ option.value }
+            value={ value }
+            { ...option }
           >
-            { option.name }
+            { name }
           </Select.Option>)
         )
       }
