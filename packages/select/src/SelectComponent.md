@@ -14,7 +14,7 @@ group:
 - 弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
 - 当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。
 
-## 动态生成选项
+## 自动生成选项
 
 ```jsx
 import React from 'react';
@@ -70,18 +70,60 @@ export default () => (
 )
 ```
 
-## API
+## 自定义渲染
+很多情况下接口给予的数据或本地定义的数据并不能符合本组件数据结构的需要，特提供一系列快捷方法进行操作。
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| loadData | 选项动态查询功能回调函数，`showSearch`参数 同时传入情况下有效 | function([searchKeyword]) => Option[] | 无 |
-| options | 静态选项初始化数组 | Option[] | 无 |
+### 对象 -> 组件需要的数据结构
+```tsx
+import React from 'react';
+import { SelectComponent, selectTypeConverter } from '@tf-magic/select';
+import 'antd/dist/antd.css';
 
-### Option
+const options = {
+  10: '百度',
+  20: '腾讯',
+  30: '阿里巴巴'
+}
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| name | 选项名称 | string | 无 |
-| value | 选项值 | any | 无 |
+export default () => (
+  <SelectComponent
+    placeholder="请输入"
+    showSearch={ true }
+    options={ selectTypeConverter(options) }
+  />
+)
+```
+
+### 对象数组 -> 组件需要的数据结构
+
+```tsx
+import React from 'react';
+import { SelectComponent, selectTypeConverter, selectTypeConverterFromArray } from '@tf-magic/select';
+import 'antd/dist/antd.css';
+
+const options = [
+  {
+    userName: '张三',
+    id: 1
+  },
+  {
+    userName: '李四',
+    id: 2
+  }
+]
+
+export default () => (
+  <SelectComponent
+    placeholder="请输入"
+    showSearch={ true }
+    options={ selectTypeConverterFromArray(options, {
+      valueRender: (item) => item.id,
+      nameRender: (item) => item.userName
+    }) }
+  />
+)
+```
+
+<API src="./index.ts"></API>
 
 更多API文档请查看 https://3x.ant.design/components/select-cn/#API

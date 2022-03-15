@@ -2,8 +2,19 @@ import React from "react"
 import { Col, Row } from 'antd'
 
 type DoubleSelectWrapperProps = {
+  /**
+   * 左边元素
+   */
   leftChildren: React.ReactNode
+
+  /**
+   * 右边元素
+   */
   rightChildren: React.ReactNode
+
+  /**
+   * 行高
+   */
   lineHeight?: any
 }
 

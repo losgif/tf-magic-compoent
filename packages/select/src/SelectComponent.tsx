@@ -6,7 +6,7 @@ import { SelectComponentOption } from './constants'
 /**
  * 选项组件Props类型声明
  */
-type SelectComponentProps = {
+export interface SelectComponentProps extends SelectProps {
   /**
    * 选项数组
    */
@@ -22,7 +22,7 @@ type SelectComponentProps = {
    * @param value
    */
   valueConverter?: (value: React.ReactText) => React.ReactText
-} & SelectProps
+}
 
 const defaultProps: SelectComponentProps = {
   valueConverter: undefined

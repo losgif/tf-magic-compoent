@@ -4,9 +4,21 @@ import { LabeledValue, SelectValue } from 'antd/es/select'
 /**
  * 选项类型声明
  */
-export type SelectComponentOption = {
+export interface SelectComponentOption {
+  /**
+   * @description 选项展示用名称
+   */
   name: React.ReactNode,
-  value: React.ReactText
+
+  /**
+   * @description 选项值
+   */
+  value: React.ReactText,
+
+  /**
+   * @description 其他选项
+   */
+  [key: string]: any
 }
 
 /**
@@ -34,7 +46,8 @@ export const selectTypeConverter = (type: { [key: number]: string }) => {
 
 type ConverterOption<T> = {
   nameRender?: (item: T) => React.ReactNode
-  valueRender?: (item: T) => React.ReactText
+  valueRender?: (item: T) => React.ReactText,
+  optionParametersRender?: (item: T) => any
 }
 
 /**
@@ -43,12 +56,13 @@ type ConverterOption<T> = {
  * @param type
  * @param options
  */
-export const selectTypeConverterFromArray = <T extends OriginOptionValueType> (type: (React.ReactText | T)[], options?: ConverterOption<T>) => {
+export const selectTypeConverterFromArray: <T extends OriginOptionValueType>(type: (React.ReactText | T)[], options?: ConverterOption<T>) => SelectComponentOption[] = <T>(type, options) => {
   const result: SelectComponentOption[] = []
 
   type?.forEach(t => {
     let name = `${ t }` as React.ReactNode
     let value = t as React.ReactText
+    let optionParameters = {}
 
     if (t instanceof Object) {
       let nameRender = options?.nameRender
@@ -61,13 +75,18 @@ export const selectTypeConverterFromArray = <T extends OriginOptionValueType> (t
         valueRender = item => item.value
       }
 
+      if (options?.optionParametersRender) {
+        optionParameters = options.optionParametersRender(t)
+      }
+
       name = nameRender(t as T)
       value = valueRender(t as T)
     }
 
     const r: SelectComponentOption = {
       name,
-      value
+      value,
+      ...optionParameters
     }
 
     result.push(r)
