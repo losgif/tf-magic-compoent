@@ -6,7 +6,7 @@ import { SelectComponentOption } from './constants'
 /**
  * 选项组件Props类型声明
  */
-export interface SelectComponentProps extends SelectProps {
+export interface SelectComponentProps extends Omit<SelectProps, 'options'> {
   /**
    * 选项数组
    */

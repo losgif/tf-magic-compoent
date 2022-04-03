@@ -1,4 +1,4 @@
-import { Empty, Icon, Select, Spin } from 'antd';
+import { Select } from 'antd';
 import { SelectProps, SelectValue } from 'antd/lib/select'
 import { debounce } from 'lodash'
 import * as React from 'react'
@@ -31,14 +31,6 @@ type DynamicSelectComponentProps = {
    */
   value?: SelectValue
 } & SelectProps
-
-const NotFoundComponent = (props: { loading: boolean }) => (
-  props.loading ? (
-    <div className={ styles.loading }>
-      <Spin tip={ '加载中...' } indicator={ (<Icon type="loading" style={ { fontSize: 24 } } spin/>) }/>
-    </div>
-  ) : <Empty image={ Empty.PRESENTED_IMAGE_SIMPLE }/>
-)
 
 const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) => {
   /**
@@ -79,8 +71,7 @@ const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) =>
       let dynamicConfig: any = {
         ...defaultConfig,
         ...restProps,
-        loading: loadingRef.current,
-        notFoundContent: (<NotFoundComponent loading={ loadingRef.current }/>)
+        loading: loadingRef.current
       }
 
       if (showSearch) {
