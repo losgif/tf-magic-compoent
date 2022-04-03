@@ -30,7 +30,7 @@ type DynamicSelectComponentProps = {
    * 选项值
    */
   value?: SelectValue
-} & SelectProps
+} & Omit<SelectProps, 'options'>
 
 const DynamicSelectComponent: React.FC<DynamicSelectComponentProps> = (props) => {
   /**
