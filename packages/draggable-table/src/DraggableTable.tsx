@@ -1,11 +1,28 @@
+import { ColumnsType } from 'antd/es/table/interface'
+import { TableProps } from 'antd/lib/table'
+import { cloneDeep } from 'lodash'
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 // @ts-ignore
 import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
-import { TableProps } from 'antd/lib/table/interface'
-import { cloneDeep } from 'lodash'
-import { ColumnProps } from 'antd/lib/table'
+
+let defaultGetColumnKeys = <T extends React.Key> (storageKey): Promise<T[]> => {
+  return JSON.parse(localStorage.getItem(storageKey))
+}
+
+let defaultSetColumnKeys = <T extends React.Key> (storageKey, columnKeys: T[]) => {
+  localStorage.setItem(storageKey, JSON.stringify(columnKeys))
+}
+
+const setGlobalConfig =
+  ({
+     getColumnsKeys = defaultGetColumnKeys,
+     setColumnsKeys = defaultSetColumnKeys
+   }) => {
+    defaultGetColumnKeys = getColumnsKeys
+    defaultSetColumnKeys = setColumnsKeys
+  }
 
 /**
  * 可拖拽表格组件Props
@@ -13,7 +30,7 @@ import { ColumnProps } from 'antd/lib/table'
  */
 type DraggableTableProps<T> = TableProps<T> & {
   /**
-   * 本地存储键名
+   * 存储键名
    */
   storageKey: string,
 }
@@ -25,24 +42,25 @@ type DraggableTableProps<T> = TableProps<T> & {
  * @param props
  * @constructor
  */
-const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableTableProps<T>) => {
-  const [columns, setColumns] = useState<ColumnProps<T>[]>()
+const DraggableTable: React.FC & { config: typeof setGlobalConfig } = <T extends object>
+({
+   storageKey,
+   ...props
+ }: DraggableTableProps<T>) => {
+  const [columns, setColumns] = useState<ColumnsType<T>>()
 
   /**
    * 获取持久化保存表格排序数据
    */
-  const getColumnKeys = (): (keyof T)[] => {
-    return JSON.parse(localStorage.getItem(storageKey))
-  }
+  const getColumnKeys = defaultGetColumnKeys
 
   /**
    * 持久化保存表头排序数据
    *
+   * @param storageKey
    * @param columnKeys
    */
-  const setColumnKeys = (columnKeys: (keyof T)[]) => {
-    localStorage.setItem(storageKey, JSON.stringify(columnKeys))
-  }
+  const setColumnKeys = defaultSetColumnKeys
 
   /**
    * 响应拖拽事件
@@ -56,20 +74,20 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
 
     cloneColumns.splice(toIndex - +!!props.rowSelection, 0, item);
 
-    const columnKeys: (keyof T)[] = []
+    const columnKeys: React.Key[] = []
     cloneColumns.forEach((column) => {
       if (!column.key) {
         throw new Error('属性 key 必须指定值')
       }
 
-      if (columnKeys.includes(column.key as keyof T)) {
+      if (columnKeys.includes(column.key)) {
         throw new Error('属性 key 必须唯一')
       }
 
-      columnKeys.push(column.key as keyof T)
+      columnKeys.push(column.key)
     })
 
-    setColumnKeys(columnKeys)
+    setColumnKeys(storageKey, columnKeys)
     setColumns(cloneColumns);
   }
 
@@ -78,7 +96,7 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
    */
   useEffect(() => {
     // 获取表头排序数据
-    const columnKeys = getColumnKeys()
+    const columnKeys = getColumnKeys(storageKey)
 
     if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
       const cloneColumns = columnKeys.map(columnKey => {
@@ -95,11 +113,11 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
       if (cloneColumns.filter(value => value).length === props.columns.length) {
         setColumns(cloneColumns)
       } else {
-        setColumnKeys([])
+        setColumnKeys(storageKey, [])
         setColumns(props.columns)
       }
     } else {
-      setColumnKeys([])
+      setColumnKeys(storageKey, [])
       setColumns(props.columns)
     }
   }, [])
@@ -107,11 +125,13 @@ const DraggableTable = <T extends unknown> ({ storageKey, ...props }: DraggableT
   return (
     <ReactDragListView.DragColumn
       onDragEnd={ handleDragColumnsEnd }
-      nodeSelector='th'
+      nodeSelector="th"
     >
       <Table { ...props } columns={ columns }/>
     </ReactDragListView.DragColumn>
   );
 };
+
+DraggableTable.config = setGlobalConfig
 
 export default DraggableTable;
