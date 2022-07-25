@@ -15,5 +15,9 @@
     "experimentalDecorators": true,
     "preserveConstEnums": true,
     "sourceMap": true
-  }
+  },
+  "include": [
+    "./typed.d.ts",
+    "./typed-css.d.ts"
+  ]
 }
