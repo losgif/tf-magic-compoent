@@ -46,7 +46,9 @@
   "peerDependencies": {
     "antd": "^4.19.5",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "lodash": "^4.17.21",
+    "react-drag-listview": "^0.1.8"
   },
   "husky": {
     "hooks": {
