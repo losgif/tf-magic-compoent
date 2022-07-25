@@ -8,7 +8,7 @@ import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
 
 let defaultGetColumnKeys = (storageKey): Promise<React.Key[]> => {
-  return JSON.parse(localStorage.getItem(storageKey))
+  return Promise.resolve(JSON.parse(localStorage.getItem(storageKey)))
 }
 
 let defaultSetColumnKeys = (storageKey, columnKeys: React.Key[]) => {
@@ -98,30 +98,30 @@ const DraggableTable: React.FC<any> & { config: typeof setGlobalConfig } = <Reco
    */
   useEffect(() => {
     // 获取表头排序数据
-    const columnKeys = getColumnKeys(storageKey)
-
-    if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
-      const cloneColumns = columnKeys.map(columnKey => {
-        for (let i = 0; i < props.columns.length; i++) {
-          if (props.columns[i]?.key === columnKey) {
-            return props.columns[i]
+    getColumnKeys(storageKey).then((columnKeys) => {
+      if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
+        const cloneColumns = columnKeys.map(columnKey => {
+          for (let i = 0; i < props.columns.length; i++) {
+            if (props.columns[i]?.key === columnKey) {
+              return props.columns[i]
+            }
           }
-        }
-      })
+        })
 
-      /**
-       * 重新排序后非空子项长度不变时作为新列传递给Table
-       */
-      if (cloneColumns.filter(value => value).length === props.columns.length) {
-        setColumns(cloneColumns)
+        /**
+         * 重新排序后非空子项长度不变时作为新列传递给Table
+         */
+        if (cloneColumns.filter(value => value).length === props.columns.length) {
+          setColumns(cloneColumns)
+        } else {
+          setColumnKeys(storageKey, [])
+          setColumns(props.columns)
+        }
       } else {
         setColumnKeys(storageKey, [])
         setColumns(props.columns)
       }
-    } else {
-      setColumnKeys(storageKey, [])
-      setColumns(props.columns)
-    }
+    })
   }, [])
 
   return (
