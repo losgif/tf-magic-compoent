@@ -1,5 +1,5 @@
-import { ColumnsType } from 'antd/es/table/interface'
-import { TableProps } from 'antd/lib/table'
+import { ColumnGroupType } from 'antd/es/table'
+import { TableProps, ColumnType } from 'antd/lib/table'
 import { cloneDeep } from 'lodash'
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react';
 import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
 
-let defaultGetColumnKeys = <T extends React.Key> (storageKey): Promise<T[]> => {
+let defaultGetColumnKeys = (storageKey): Promise<React.Key[]> => {
   return JSON.parse(localStorage.getItem(storageKey))
 }
 
-let defaultSetColumnKeys = <T extends React.Key> (storageKey, columnKeys: T[]) => {
+let defaultSetColumnKeys = (storageKey, columnKeys: React.Key[]) => {
   localStorage.setItem(storageKey, JSON.stringify(columnKeys))
 }
 
@@ -28,11 +28,13 @@ const setGlobalConfig =
  * 可拖拽表格组件Props
  * 注意，Columns参数中，key 必须唯一且必传
  */
-type DraggableTableProps<T> = TableProps<T> & {
+type DraggableTableProps<RecordType> = Omit<TableProps<RecordType>, 'columns'> & {
   /**
    * 存储键名
    */
   storageKey: string,
+
+  columns?: (ColumnGroupType<RecordType> & { key: React.Key } | ColumnType<RecordType> & { key: React.Key })[]
 }
 
 /**
@@ -42,12 +44,12 @@ type DraggableTableProps<T> = TableProps<T> & {
  * @param props
  * @constructor
  */
-const DraggableTable: React.FC & { config: typeof setGlobalConfig } = <T extends object>
+const DraggableTable: React.FC<any> & { config: typeof setGlobalConfig } = <RecordType extends object>
 ({
    storageKey,
    ...props
- }: DraggableTableProps<T>) => {
-  const [columns, setColumns] = useState<ColumnsType<T>>()
+ }: DraggableTableProps<RecordType>) => {
+  const [columns, setColumns] = useState<typeof props.columns>()
 
   /**
    * 获取持久化保存表格排序数据
@@ -76,15 +78,15 @@ const DraggableTable: React.FC & { config: typeof setGlobalConfig } = <T extends
 
     const columnKeys: React.Key[] = []
     cloneColumns.forEach((column) => {
-      if (!column.key) {
+      if (!column?.key) {
         throw new Error('属性 key 必须指定值')
       }
 
-      if (columnKeys.includes(column.key)) {
+      if (columnKeys.includes(column?.key)) {
         throw new Error('属性 key 必须唯一')
       }
 
-      columnKeys.push(column.key)
+      columnKeys.push(column?.key)
     })
 
     setColumnKeys(storageKey, columnKeys)
@@ -101,7 +103,7 @@ const DraggableTable: React.FC & { config: typeof setGlobalConfig } = <T extends
     if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
       const cloneColumns = columnKeys.map(columnKey => {
         for (let i = 0; i < props.columns.length; i++) {
-          if (props.columns[i].key === columnKey) {
+          if (props.columns[i]?.key === columnKey) {
             return props.columns[i]
           }
         }
