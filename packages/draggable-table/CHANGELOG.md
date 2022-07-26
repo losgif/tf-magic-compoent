@@ -1,5 +1,11 @@
 # @tf-magic/draggable-table
 
+## 0.3.12
+
+### Patch Changes
+
+- 🔨 修复: 类型问题
+
 ## 0.3.11
 
 ### Patch Changes
