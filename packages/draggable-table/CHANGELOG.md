@@ -1,5 +1,11 @@
 # @tf-magic/draggable-table
 
+## 0.3.11
+
+### Patch Changes
+
+- ✨ 特性: 支持自定义 uniqueKey
+
 ## 0.3.10
 
 ### Patch Changes
