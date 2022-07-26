@@ -1,5 +1,4 @@
-import { ColumnGroupType } from 'antd/es/table'
-import { TableProps, ColumnType } from 'antd/lib/table'
+import { TableProps } from 'antd/lib/table'
 import { cloneDeep } from 'lodash'
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -7,11 +6,11 @@ import { useEffect, useState } from 'react';
 import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
 
-let defaultGetUniqueKeys = (storageKey): Promise<React.Key[]> => {
+let defaultGetUniqueKeys = (storageKey): Promise<any[]> => {
   return Promise.resolve(JSON.parse(localStorage.getItem(storageKey)))
 }
 
-let defaultSetUniqueKeys = (storageKey, uniqueKeys: React.Key[]) => {
+let defaultSetUniqueKeys = (storageKey, uniqueKeys: any[]) => {
   localStorage.setItem(storageKey, JSON.stringify(uniqueKeys))
 }
 
@@ -28,15 +27,13 @@ const setGlobalConfig =
  * 可拖拽表格组件Props
  * 注意，Columns参数中，key 必须唯一且必传
  */
-type DraggableTableProps<RecordType> = Omit<TableProps<RecordType>, 'columns'> & {
+type DraggableTableProps<RecordType> = TableProps<RecordType> & {
   /**
    * 存储键名
    */
   storageKey: string,
 
-  uniqueKey?: keyof ColumnType<RecordType>
-
-  columns?: (ColumnGroupType<RecordType> & { key: React.Key } | ColumnType<RecordType> & { key: React.Key })[]
+  uniqueKey?: string
 }
 
 /**
@@ -80,7 +77,7 @@ const DraggableTable = function DraggableTable<RecordType extends object>
 
     cloneColumns.splice(toIndex - +!!props.rowSelection, 0, item);
 
-    const uniqueKeys: React.Key[] = []
+    const uniqueKeys: any[] = []
     cloneColumns.forEach((column) => {
       if (!column?.[uniqueKey]) {
         throw new Error(`属性${uniqueKey}必须指定值`)
