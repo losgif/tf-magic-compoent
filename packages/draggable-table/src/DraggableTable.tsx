@@ -7,21 +7,21 @@ import { useEffect, useState } from 'react';
 import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
 
-let defaultGetColumnKeys = (storageKey): Promise<React.Key[]> => {
+let defaultGetUniqueKeys = (storageKey): Promise<React.Key[]> => {
   return Promise.resolve(JSON.parse(localStorage.getItem(storageKey)))
 }
 
-let defaultSetColumnKeys = (storageKey, columnKeys: React.Key[]) => {
-  localStorage.setItem(storageKey, JSON.stringify(columnKeys))
+let defaultSetUniqueKeys = (storageKey, uniqueKeys: React.Key[]) => {
+  localStorage.setItem(storageKey, JSON.stringify(uniqueKeys))
 }
 
 const setGlobalConfig =
   ({
-     getColumnsKeys = defaultGetColumnKeys,
-     setColumnsKeys = defaultSetColumnKeys
+     getColumnsKeys: getUniqueKeys = defaultGetUniqueKeys,
+     setColumnsKeys: setUniqueKeys = defaultSetUniqueKeys
    }) => {
-    defaultGetColumnKeys = getColumnsKeys
-    defaultSetColumnKeys = setColumnsKeys
+    defaultGetUniqueKeys = getUniqueKeys
+    defaultSetUniqueKeys = setUniqueKeys
   }
 
 /**
@@ -34,6 +34,8 @@ type DraggableTableProps<RecordType> = Omit<TableProps<RecordType>, 'columns'> &
    */
   storageKey: string,
 
+  uniqueKey?: keyof ColumnType<RecordType>
+
   columns?: (ColumnGroupType<RecordType> & { key: React.Key } | ColumnType<RecordType> & { key: React.Key })[]
 }
 
@@ -41,12 +43,14 @@ type DraggableTableProps<RecordType> = Omit<TableProps<RecordType>, 'columns'> &
  * 可拖拽表格组件
  *
  * @param storageKey 持久化标识Key
+ * @param uniqueKey 唯一列标识
  * @param props
  * @constructor
  */
 const DraggableTable = function DraggableTable<RecordType extends object>
 ({
    storageKey,
+   uniqueKey = 'key',
    ...props
  }: DraggableTableProps<RecordType>) {
   const [columns, setColumns] = useState<typeof props.columns>()
@@ -54,7 +58,7 @@ const DraggableTable = function DraggableTable<RecordType extends object>
   /**
    * 获取持久化保存表格排序数据
    */
-  const getColumnKeys = defaultGetColumnKeys
+  const getUniqueKeys = defaultGetUniqueKeys
 
   /**
    * 持久化保存表头排序数据
@@ -62,7 +66,7 @@ const DraggableTable = function DraggableTable<RecordType extends object>
    * @param storageKey
    * @param columnKeys
    */
-  const setColumnKeys = defaultSetColumnKeys
+  const setUniqueKeys = defaultSetUniqueKeys
 
   /**
    * 响应拖拽事件
@@ -76,20 +80,20 @@ const DraggableTable = function DraggableTable<RecordType extends object>
 
     cloneColumns.splice(toIndex - +!!props.rowSelection, 0, item);
 
-    const columnKeys: React.Key[] = []
+    const uniqueKeys: React.Key[] = []
     cloneColumns.forEach((column) => {
-      if (!column?.key) {
-        throw new Error('属性 key 必须指定值')
+      if (!column?.[uniqueKey]) {
+        throw new Error(`属性${uniqueKey}必须指定值`)
       }
 
-      if (columnKeys.includes(column?.key)) {
-        throw new Error('属性 key 必须唯一')
+      if (uniqueKeys.includes(column?.[uniqueKey])) {
+        throw new Error(`属性${uniqueKey}必须唯一`)
       }
 
-      columnKeys.push(column?.key)
+      uniqueKeys.push(column?.[uniqueKey])
     })
 
-    setColumnKeys(storageKey, columnKeys)
+    setUniqueKeys(storageKey, uniqueKeys)
     setColumns(cloneColumns);
   }
 
@@ -97,12 +101,16 @@ const DraggableTable = function DraggableTable<RecordType extends object>
    * 初始化表头
    */
   useEffect(() => {
+    if (!storageKey) {
+      throw new Error("持久化标识必须传入")
+    }
+
     // 获取表头排序数据
-    getColumnKeys(storageKey).then((columnKeys) => {
-      if (Array.isArray(columnKeys) && columnKeys.length === props.columns.length) {
-        const cloneColumns = columnKeys.map(columnKey => {
+    getUniqueKeys(storageKey).then((uniqueKeys) => {
+      if (Array.isArray(uniqueKeys) && uniqueKeys.length === props.columns.length) {
+        const cloneColumns = uniqueKeys.map(columnKey => {
           for (let i = 0; i < props.columns.length; i++) {
-            if (props.columns[i]?.key === columnKey) {
+            if (props.columns[i]?.[uniqueKey] === columnKey) {
               return props.columns[i]
             }
           }
@@ -114,15 +122,15 @@ const DraggableTable = function DraggableTable<RecordType extends object>
         if (cloneColumns.filter(value => value).length === props.columns.length) {
           setColumns(cloneColumns)
         } else {
-          setColumnKeys(storageKey, [])
+          setUniqueKeys(storageKey, [])
           setColumns(props.columns)
         }
       } else {
-        setColumnKeys(storageKey, [])
+        setUniqueKeys(storageKey, [])
         setColumns(props.columns)
       }
     })
-  }, [])
+  }, [storageKey, props.columns])
 
   return (
     <ReactDragListView.DragColumn
