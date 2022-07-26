@@ -44,11 +44,11 @@ type DraggableTableProps<RecordType> = Omit<TableProps<RecordType>, 'columns'> &
  * @param props
  * @constructor
  */
-const DraggableTable: React.FC<any> & { config: typeof setGlobalConfig } = <RecordType extends object>
+const DraggableTable = function DraggableTable<RecordType extends object>
 ({
    storageKey,
    ...props
- }: DraggableTableProps<RecordType>) => {
+ }: DraggableTableProps<RecordType>) {
   const [columns, setColumns] = useState<typeof props.columns>()
 
   /**
@@ -132,7 +132,7 @@ const DraggableTable: React.FC<any> & { config: typeof setGlobalConfig } = <Reco
       <Table { ...props } columns={ columns }/>
     </ReactDragListView.DragColumn>
   );
-};
+}
 
 DraggableTable.config = setGlobalConfig
 
