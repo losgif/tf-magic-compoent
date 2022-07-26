@@ -1,5 +1,11 @@
 # @tf-magic/draggable-table
 
+## 0.3.13
+
+### Patch Changes
+
+- 🔨 修复: 固定列问题
+
 ## 0.3.12
 
 ### Patch Changes
