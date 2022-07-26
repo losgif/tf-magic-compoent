@@ -36,6 +36,11 @@ export default () => {
   ])
   const [defaultColumns] = useState([
     {
+      title: '操作',
+      fixed: 'left',
+      render: () => (<a>添加</a>)
+    },
+    {
       key: 'id',
       dataIndex: 'id',
       title: 'ID'

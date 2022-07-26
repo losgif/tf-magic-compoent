@@ -79,12 +79,16 @@ const DraggableTable = function DraggableTable<RecordType extends object>
 
     const uniqueKeys: any[] = []
     cloneColumns.forEach((column) => {
+      if (column.fixed) {
+        return
+      }
+
       if (!column?.[uniqueKey]) {
-        throw new Error(`属性${uniqueKey}必须指定值`)
+        throw new Error(`属性${ uniqueKey }必须指定值`)
       }
 
       if (uniqueKeys.includes(column?.[uniqueKey])) {
-        throw new Error(`属性${uniqueKey}必须唯一`)
+        throw new Error(`属性${ uniqueKey }必须唯一`)
       }
 
       uniqueKeys.push(column?.[uniqueKey])
@@ -127,7 +131,10 @@ const DraggableTable = function DraggableTable<RecordType extends object>
         setColumns(props.columns)
       }
     })
-  }, [storageKey, props.columns])
+  }, [
+    storageKey,
+    props.columns
+  ])
 
   return (
     <ReactDragListView.DragColumn
