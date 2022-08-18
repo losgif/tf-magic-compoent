@@ -1,6 +1,6 @@
 {
   "name": "@tf-magic/select",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0",
   "description": "一个支持远程加载选项的下拉选择框",
   "keywords": [
     "远程加载",
