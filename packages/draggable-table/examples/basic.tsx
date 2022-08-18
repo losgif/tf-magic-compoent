@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import * as React from 'react';
 import DraggableTable from '@tf-magic/draggable-table';
+import 'antd/dist/antd.css';
 
 const Basic = () => {
   const [loading] = useState(false)

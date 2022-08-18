@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import * as React from 'react';
 import PopupAddress from '@tf-magic/address'
+import 'antd/dist/antd.css';
 
 const Basic = () => {
   const handleChange = useCallback((value) => {
