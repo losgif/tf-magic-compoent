@@ -4,7 +4,6 @@ import { debounce } from 'lodash'
 import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { SelectComponentOption } from './constants'
-// @ts-ignore
 import styles from './index.less'
 
 /**
