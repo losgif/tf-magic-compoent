@@ -27,11 +27,19 @@
     "type": "git",
     "url": "https://github.com/losgif/tf-magic-component/tree/master/packages/select"
   },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "antd": "^3.26.20",
+    "lodash": "^4.17.21",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
   "scripts": {
     "build": "run-s compile types",
     "compile": "magic-cli compile",
     "types": "tsc --noEmit",
-    "start": "dumi dev",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest"
   }
 }

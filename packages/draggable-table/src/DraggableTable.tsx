@@ -33,6 +33,9 @@ type DraggableTableProps<RecordType> = TableProps<RecordType> & {
    */
   storageKey: string,
 
+  /**
+   * 唯一列标识
+   */
   uniqueKey?: string
 }
 
@@ -44,7 +47,7 @@ type DraggableTableProps<RecordType> = TableProps<RecordType> & {
  * @param props
  * @constructor
  */
-const DraggableTable = function DraggableTable<RecordType extends object>
+function DraggableTable<RecordType extends object>
 ({
    storageKey,
    uniqueKey = 'key',
@@ -123,11 +126,9 @@ const DraggableTable = function DraggableTable<RecordType extends object>
         if (cloneColumns.filter(value => value).length === props.columns.length) {
           setColumns(cloneColumns)
         } else {
-          setUniqueKeys(storageKey, [])
           setColumns(props.columns)
         }
       } else {
-        setUniqueKeys(storageKey, [])
         setColumns(props.columns)
       }
     })

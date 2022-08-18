@@ -24,8 +24,20 @@
     "type": "git",
     "url": "https://github.com/losgif/tf-magic-component/tree/master/packages/draggable-table"
   },
+  "dependencies": {
+    "classnames": "^2.3.1",
+    "rc-select": "^14.1.9",
+    "rc-trigger": "^5.3.1"
+  },
+  "peerDependencies": {
+    "antd": "^3.26.20",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
   "scripts": {
-    "build": "rollup -c",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "run-s compile types",
+    "compile": "magic-cli compile",
+    "types": "tsc --noEmit",
+    "test": "jest"
   }
 }
