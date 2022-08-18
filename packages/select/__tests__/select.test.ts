@@ -1,4 +1,4 @@
-import { selectTypeConverter } from '..'
+import { selectTypeConverter } from '../src'
 
 describe('@tf-magic/select', () => {
   it('selectTypeConverter', () => {
