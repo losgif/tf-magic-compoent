@@ -12,7 +12,7 @@
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "typings": "dist/cjs/index.d.ts",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
@@ -34,8 +34,8 @@
     "react-drag-listview": "^0.1.8"
   },
   "scripts": {
-    "build": "run-s compile types",
-    "compile": "magic-cli compile",
+    "start": "dumi dev",
+    "build": "rimraf dist && magic-cli compile",
     "types": "tsc --noEmit",
     "test": "jest"
   }
