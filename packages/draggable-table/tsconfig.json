@@ -1,5 +1,10 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "emitDeclarationOnly": true
+  },
   "include": ["src/**/*", "../../typed-css.d.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "build", "dist"]
 }
