@@ -7,7 +7,7 @@ importers:
       '@changesets/cli': ^2.21.0
       '@commitlint/cli': ^15.0.0
       '@commitlint/config-conventional': ^15.0.0
-      '@tf-magic/cli': ^1.5.2
+      '@tf-magic/cli': ^1.5.3
       '@types/classnames': ^2.3.1
       '@types/jest': ^27.4.0
       '@types/lodash': ^4.14.177
@@ -42,7 +42,7 @@ importers:
       '@changesets/cli': 2.21.0
       '@commitlint/cli': 15.0.0
       '@commitlint/config-conventional': 15.0.0
-      '@tf-magic/cli': 1.5.2
+      '@tf-magic/cli': 1.5.3
       '@types/classnames': 2.3.1
       '@types/jest': 27.4.0
       '@types/lodash': 4.14.178
@@ -2066,8 +2066,8 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@tf-magic/cli/1.5.2:
-    resolution: {integrity: sha512-EegnNfQyHW0qN773Mch6SII7p4bcFBpeTuImwjKi38BG69Kks4MWiaOV0Qqpuwp7/64o+8iQptE+CYIyYpt0Fg==}
+  /@tf-magic/cli/1.5.3:
+    resolution: {integrity: sha512-wLT2Zt9rvavWcXSyqMWS2XwQYGtvUnPHLzw333df0hghgSZdLGN/3TIkXGty+3oyypkWpBuqIlruLLXNlEInGw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -2080,6 +2080,7 @@ packages:
       pkg: 5.8.0
       postcss: 8.4.6
       rollup: 2.68.0
+      rollup-plugin-dts: 4.2.2_jrqhcdvvfzmrsc4z5p6zs2uiwy
       rollup-plugin-esbuild: 4.8.2_u4qvfz2wo3du5tgpqyij5gkaei
       rollup-plugin-less: 1.1.3
       rollup-plugin-postcss: 4.0.2_postcss@8.4.6
