@@ -1,6 +1,6 @@
 {
   "name": "@tf-magic/address",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "地址选择器，支持省市区街道四级地址，支持详细地址填写。",
   "keywords": [
     "地址选择器",
