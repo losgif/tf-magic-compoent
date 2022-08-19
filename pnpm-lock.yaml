@@ -7,7 +7,7 @@ importers:
       '@changesets/cli': ^2.21.0
       '@commitlint/cli': ^15.0.0
       '@commitlint/config-conventional': ^15.0.0
-      '@tf-magic/cli': ^1.5.3
+      '@tf-magic/cli': ^1.5.4
       '@types/classnames': ^2.3.1
       '@types/jest': ^27.4.0
       '@types/lodash': ^4.14.177
@@ -42,7 +42,7 @@ importers:
       '@changesets/cli': 2.21.0
       '@commitlint/cli': 15.0.0
       '@commitlint/config-conventional': 15.0.0
-      '@tf-magic/cli': 1.5.3
+      '@tf-magic/cli': 1.5.4
       '@types/classnames': 2.3.1
       '@types/jest': 27.4.0
       '@types/lodash': 4.14.178
@@ -2066,8 +2066,8 @@ packages:
       '@sinonjs/commons': 1.8.3
     dev: true
 
-  /@tf-magic/cli/1.5.3:
-    resolution: {integrity: sha512-wLT2Zt9rvavWcXSyqMWS2XwQYGtvUnPHLzw333df0hghgSZdLGN/3TIkXGty+3oyypkWpBuqIlruLLXNlEInGw==}
+  /@tf-magic/cli/1.5.4:
+    resolution: {integrity: sha512-F8u6oTzp+iGHjMRw22NdshPiM+TwglRG7p7aNWIC1mjRKVhDKX2dD4KSceBoHd/ihhl4YaGG0JluiskgcLdoMw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     hasBin: true
     peerDependencies:
