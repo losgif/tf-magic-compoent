@@ -82,9 +82,10 @@ function DraggableTable<RecordType extends object>
 
     // 获取表头排序数据
     getUniqueKeys(storageKey).then((uniqueKeys) => {
-      const fixedColumns = props.columns.filter(item => item.fixed)
+      const leftFixedColumns = props.columns.filter(item => item.fixed === true || item.fixed === 'left')
+      const rightFixedColumns = props.columns.filter(item => item.fixed === 'right')
       const normalColumns = props.columns.filter(item => !item.fixed)
-      const cloneColumns = fixedColumns
+      const cloneColumns = leftFixedColumns
 
       // 处理新增列情况
       for (const column of normalColumns) {
@@ -107,6 +108,8 @@ function DraggableTable<RecordType extends object>
           cloneColumns.push(column)
         }
       }
+
+      cloneColumns.push(...rightFixedColumns)
 
       setColumns(cloneColumns)
     }).catch(() => {
