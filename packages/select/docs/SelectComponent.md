@@ -1,7 +1,7 @@
 ---
 group:
   title: 选择器
-  path: /select-component
+  path: /select
 ---
 
 # 下拉选择器
