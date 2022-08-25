@@ -1,7 +1,7 @@
 ---
 group:
   title: 地址选择器
-  path: /popup-address
+  path: /address
 ---
 
 # 地址选择器
