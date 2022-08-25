@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import ReactDragListView from 'react-drag-listview';
 import Table from './Table'
 
-let defaultGetUniqueKeys = (storageKey): Promise<any[]> => {
+let defaultGetUniqueKeys = (storageKey): Promise<string[]> => {
   return Promise.resolve(JSON.parse(localStorage.getItem(storageKey)))
 }
 
-let defaultSetUniqueKeys = (storageKey, uniqueKeys: any[]) => {
+let defaultSetUniqueKeys = (storageKey, uniqueKeys: string[]) => {
   localStorage.setItem(storageKey, JSON.stringify(uniqueKeys))
 }
 
@@ -68,6 +68,55 @@ function DraggableTable<RecordType extends object>
    */
   const setUniqueKeys = defaultSetUniqueKeys
 
+  useEffect(() => {
+    console.log('useEffect', columns)
+  }, [columns])
+
+  /**
+   * 初始化表头
+   */
+  useEffect(() => {
+    if (!storageKey) {
+      throw new Error("持久化标识必须传入")
+    }
+
+    // 获取表头排序数据
+    getUniqueKeys(storageKey).then((uniqueKeys) => {
+      const fixedColumns = props.columns.filter(item => item.fixed)
+      const normalColumns = props.columns.filter(item => !item.fixed)
+      const cloneColumns = fixedColumns
+
+      // 处理新增列情况
+      for (const column of normalColumns) {
+        const hasColumnKeyInStorage = uniqueKeys.findIndex(key => key === column[uniqueKey]) > -1
+
+        // 如果持久存储中不存在新增列，则添加到表头中
+        if (!hasColumnKeyInStorage) {
+          cloneColumns.push(column)
+        }
+      }
+
+      // 处理删除列情况并重新排序
+      for (const columnKey of uniqueKeys) {
+        const column = normalColumns.find((column) => column?.[uniqueKey] === columnKey)
+
+        // 如果持久存储中存在删除列，则从表头中移除
+        if (!column) {
+          delete uniqueKeys[columnKey]
+        } else {
+          cloneColumns.push(column)
+        }
+      }
+
+      setColumns(cloneColumns)
+    }).catch(() => {
+      setColumns(props.columns)
+    })
+  }, [
+    storageKey,
+    props.columns
+  ])
+
   /**
    * 响应拖拽事件
    *
@@ -77,7 +126,6 @@ function DraggableTable<RecordType extends object>
   const handleDragColumnsEnd = (fromIndex: number, toIndex: number) => {
     const cloneColumns = cloneDeep(columns)
     const item = cloneColumns.splice(fromIndex - +!!props.rowSelection, 1)[0];
-
     cloneColumns.splice(toIndex - +!!props.rowSelection, 0, item);
 
     const uniqueKeys: any[] = []
@@ -100,42 +148,6 @@ function DraggableTable<RecordType extends object>
     setUniqueKeys(storageKey, uniqueKeys)
     setColumns(cloneColumns);
   }
-
-  /**
-   * 初始化表头
-   */
-  useEffect(() => {
-    if (!storageKey) {
-      throw new Error("持久化标识必须传入")
-    }
-
-    // 获取表头排序数据
-    getUniqueKeys(storageKey).then((uniqueKeys) => {
-      if (Array.isArray(uniqueKeys) && uniqueKeys.length === props.columns.length) {
-        const cloneColumns = uniqueKeys.map(columnKey => {
-          for (let i = 0; i < props.columns.length; i++) {
-            if (props.columns[i]?.[uniqueKey] === columnKey) {
-              return props.columns[i]
-            }
-          }
-        })
-
-        /**
-         * 重新排序后非空子项长度不变时作为新列传递给Table
-         */
-        if (cloneColumns.filter(value => value).length === props.columns.length) {
-          setColumns(cloneColumns)
-        } else {
-          setColumns(props.columns)
-        }
-      } else {
-        setColumns(props.columns)
-      }
-    })
-  }, [
-    storageKey,
-    props.columns
-  ])
 
   return (
     <ReactDragListView.DragColumn
