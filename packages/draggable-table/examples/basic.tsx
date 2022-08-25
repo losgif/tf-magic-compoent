@@ -9,12 +9,14 @@ const Basic = () => {
     {
       id: 1,
       name: '张三',
-      phone: '13333333333'
+      phone: '13333333333',
+      amount: 500
     },
     {
       id: 2,
       name: '李四',
-      phone: '14444444444'
+      phone: '14444444444',
+      amount: 1000
     }
   ])
 
@@ -43,6 +45,11 @@ const Basic = () => {
           key: 'phone',
           dataIndex: 'phone',
           title: '手机号'
+        },
+        {
+          key: 'amount',
+          dataIndex: 'amount',
+          title: '身价'
         }
       ] }
       pagination={ false }
