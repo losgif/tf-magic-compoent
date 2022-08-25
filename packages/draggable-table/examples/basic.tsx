@@ -10,12 +10,14 @@ const Basic = () => {
       id: 1,
       name: '张三',
       phone: '13333333333',
+      age: 18,
       amount: 500
     },
     {
       id: 2,
       name: '李四',
       phone: '14444444444',
+      age: 32,
       amount: 1000
     }
   ])
@@ -27,9 +29,9 @@ const Basic = () => {
       dataSource={ data }
       columns={ [
         {
-          title: '操作',
+          title: '编号',
           fixed: 'left',
-          render: () => (<a>添加</a>)
+          render: (_, __, index) => (index)
         },
         {
           key: 'id',
@@ -42,6 +44,11 @@ const Basic = () => {
           title: '姓名'
         },
         {
+          key: 'age',
+          dataIndex: 'age',
+          title: '年龄'
+        },
+        {
           key: 'phone',
           dataIndex: 'phone',
           title: '手机号'
@@ -50,6 +57,11 @@ const Basic = () => {
           key: 'amount',
           dataIndex: 'amount',
           title: '身价'
+        },
+        {
+          title: '操作',
+          fixed: 'right',
+          render: () => (<a>添加</a>)
         }
       ] }
       pagination={ false }
